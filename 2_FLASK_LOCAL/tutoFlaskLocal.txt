@@ -1,0 +1,16 @@
+1. Lancer le serveur Flask sur l'ordi: Ouvrir un cmd window, se mettre dans le dossier où se trouve app.py puis lancer app.py.
+C:\Users\Olivi>cd C:\Users\Olivi\MPDATA
+C:\Users\Olivi\MPDATA>python app.py
+
+--> Le serveur Flask est disponible via : http://127.0.0.1:5000. 
+--> La prédiction se fera via http://127.0.0.1:5000/prediction via une requête POST.
+
+2. Pour réaliser une prédiction : ouvrir un cmd window  puis lancer la commande cURL : 
+C:\Users\Olivi>curl -X POST http://127.0.0.1:5000/predict -H "Content-Type: application/json" -d "{\"GP\": 82, \"PTS\": 11.7, \"FG%\": 50.00, \"3P%\": 0.00, \"FT%\": 60.00, \"REB\": 6.3, \"AST\": 1.0, \"STL\": 0.7, \"BLK\": 1.5, \"TOV\": 1.7}"
+
+Résultat : 
+{
+  "interpretation": "Likely to last 5+ years in NBA",
+  "prediction": 1,
+  "probability": 0.975
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Career Prediction</title>
+</head>
+<body>
+    <h1>NBA Career Prediction</h1>
+    <p>Enter the player's statistics below to predict their probability of lasting 5+ years in the NBA.</p>
+    <form method="POST" action="/predict">
+        <label for="GP">Games Played (GP):</label>
+        <input type="number" step="any" name="GP" value="82" required min="0"><br>
+
+        <label for="MIN">Minutes Played (MIN):</label>
+        <input type="number" step="any" name="MIN" value="24.2" required min="0"><br>
+
+        <label for="PTS">Points (PTS):</label>
+        <input type="number" step="any" name="PTS" value="11.7" required min="0"><br>
+
+        <label for="FGM">Field Goals made (FGM):</label>
+        <input type="number" step="any" name="FGM" value="4.6" required min="0"><br>
+
+        <label for="FGA">Field Goals Attempted (FGA):</label>
+        <input type="number" step="any" name="FGA" value="9.2" required min="0"><br>
+
+        <label for="FG%">Field Goals Percentage (FG%):</label>
+        <input type="number" step="any" name="FG%" value="50.0" required min="0"><br>
+
+        <label for="3P Made">3-Point Made (3P Made):</label>
+        <input type="number" step="any" name="3P Made" value="0.0" required min="0"><br>
+
+        <label for="3PA">3-Point Attempts (3PA):</label>
+        <input type="number" step="any" name="3PA" value="0.1" required min="0"><br>
+
+        <label for="3P%">3-Point Percentage (3P%):</label>
+        <input type="number" step="any" name="3P%" value="0.0" required min="0"><br>
+
+        <label for="FTM">Free Throws Made (FTM):</label>
+        <input type="number" step="any" name="FTM" value="2.4" required min="0"><br>
+
+        <label for="FTA">Free Throws Attempted (FTA):</label>
+        <input type="number" step="any" name="FTA" value="4.0" required min="0"><br>
+
+        <label for="FT%">Free Throws Percentage (FT%):</label>
+        <input type="number" step="any" name="FT%" value="60.0" required min="0"><br>
+
+        <label for="OREB">Offensive Rebounds (OREB):</label>
+        <input type="number" step="any" name="OREB" value="2.0" required min="0"><br>
+
+        <label for="DREB">Defensive Rebounds (DREB):</label>
+        <input type="number" step="any" name="DREB" value="4.3" required min="0"><br>
+
+        <label for="REB">Rebounds (REB):</label>
+        <input type="number" step="any" name="REB" value="6.3" required min="0"><br>
+
+        <label for="AST">Assists (AST):</label>
+        <input type="number" step="any" name="AST" value="1.0" required min="0"><br>
+
+        <label for="STL">Steals (STL):</label>
+        <input type="number" step="any" name="STL" value="0.7" required min="0"><br>
+
+        <label for="BLK">Blocks (BLK):</label>
+        <input type="number" step="any" name="BLK" value="1.5" required min="0"><br>
+
+        <label for="TOV">Turnovers (TOV):</label>
+        <input type="number" step="any" name="TOV" value="1.7" required min="0"><br>
+
+        <label for="FGM">Field Goals made (FGM):</label>
+        <input type="number" step="any" name="FGM" value="4.6" required min="0"><br>
+
+        <label for="FGA">Field Goals Attempted (FGA):</label>
+        <input type="number" step="any" name="FGA" value="9.2" required min="0"><br>
+
+        <label for="FG%">Field Goals Percentage (FG%):</label>
+        <input type="number" step="any" name="FG%" value="50.0" required min="0"><br>
+
+        <label for="3P Made">3-Point Made (3P Made):</label>
+        <input type="number" step="any" name="3P Made" value="0.0" required min="0"><br>
+
+        <label for="3PA">3-Point Attempts (3PA):</label>
+        <input type="number" step="any" name="3PA" value="0.1" required min="0"><br>
+
+        <label for="3P%">3-Point Percentage (3P%):</label>
+        <input type="number" step="any" name="3P%" value="0.0" required min="0"><br>
+
+        <label for="FTM">Free Throws Made (FTM):</label>
+        <input type="number" step="any" name="FTM" value="2.4" required min="0"><br>
+
+        <label for="FTA">Free Throws Attempted (FTA):</label>
+        <input type="number" step="any" name="FTA" value="4.0" required min="0"><br>
+
+        <label for="FT%">Free Throws Percentage (FT%):</label>
+        <input type="number" step="any" name="FT%" value="60.0" required min="0"><br>
+
+        <label for="OREB">Offensive Rebounds (OREB):</label>
+        <input type="number" step="any" name="OREB" value="4.3" required min="0"><br>
+
+        <label for="DREB">Defensive Rebounds (DREB):</label>
+        <input type="number" step="any" name="DREB" value="2.0" required min="0"><br>
+
+        <button type="submit">Predict</button>
+    </form>
+    <p>The prediction is based on a machine learning model trained on historical NBA player data.
+    The model analyzes the input statistics to estimate the player's likelihood of lasting 5+ years in the NBA.</p>
+</body>
+</html>
