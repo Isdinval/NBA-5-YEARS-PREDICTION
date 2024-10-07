@@ -5,42 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Career Prediction Results</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fillBar {
+            from { width: 0%; }
+            to { width: v-bind('probability'); }
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(to right, #3b82f6, #6366f1) border-box;
+            border: 3px solid transparent;
+        }
+
+        .probability-bar {
+            height: 2.5rem;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .probability-fill {
+            height: 100%;
+            animation: fillBar 1.5s ease-out forwards;
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+        }
+
+        .stat-comparison {
+            transition: transform 0.2s ease;
+        }
+
+        .stat-comparison:hover {
+            transform: translateY(-2px);
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            transition: all 0.3s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800 mb-4">Prediction Results</h1>
-            </div>
+    <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+            <div class="result-card gradient-border p-8">
+                <!-- Header Section -->
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-4">Career Prediction Results</h1>
+                    <p class="text-gray-600 text-lg">Analysis based on provided statistics</p>
+                </div>
 
-            <div class="space-y-6">
-                <div class="bg-gray-50 rounded-lg p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Career Longevity Prediction</h2>
-
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-600">Prediction:</span>
-                            <span class="font-semibold {% if result.prediction == 1 %}text-green-600{% else %}text-red-600{% endif %}">
+                <!-- Main Prediction Section -->
+                <div class="space-y-8">
+                    <!-- Prediction Card -->
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">Career Longevity Prediction</h2>
+                            <span class="{% if result.prediction == 1 %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %} px-4 py-2 rounded-full font-semibold">
                                 {{ result.interpretation }}
                             </span>
                         </div>
-
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-600">Probability:</span>
-                            <span class="font-semibold">{{ "%.1f"|format(result.probability * 100) }}%</span>
-                        </div>
-
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ result.probability * 100 }}%"></div>
+                        
+                        <!-- Probability Display -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg text-gray-700">Success Probability</span>
+                                <span class="text-2xl font-bold text-blue-600">{{ "%.1f"|format(result.probability * 100) }}%</span>
+                            </div>
+                            <div class="probability-bar bg-gray-200">
+                                <div class="probability-fill" style="width: {{ result.probability * 100 }}%"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="flex justify-center mt-8">
-                    <a href="/"
-                       class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
-                        Make Another Prediction
-                    </a>
+                    <!-- Key Insights -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="insight-card rounded-xl p-6">
+                            <div class="text-3xl mb-3">🏀</div>
+                            <h3 class="font-semibold mb-2">Performance Level</h3>
+                            <p class="text-gray-600">
+                                {{ "Above average" if result.probability > 0.6 else "Average" if result.probability > 0.4 else "Below average" }} 
+                                compared to successful NBA careers
+                            </p>
+                        </div>
+                        <div class="insight-card rounded-xl p-6">
+                            <div class="text-3xl mb-3">📊</div>
+                            <h3 class="font-semibold mb-2">Statistical Highlights</h3>
+                            <p class="text-gray-600">Key stats align with {{ "long-term" if result.probability > 0.5 else "short-term" }} career patterns</p>
+                        </div>
+                        <div class="insight-card rounded-xl p-6">
+                            <div class="text-3xl mb-3">🎯</div>
+                            <h3 class="font-semibold mb-2">Development Areas</h3>
+                            <p class="text-gray-600">
+                                Focus on {{ "maintaining" if result.probability > 0.7 else "improving" }} current performance metrics
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Analysis -->
+                    <div class="bg-white rounded-xl p-8 border border-gray-200">
+                        <h3 class="text-xl font-bold mb-4">Detailed Analysis</h3>
+                        <div class="space-y-4">
+                            <p class="text-gray-700">
+                                Based on the provided statistics, this prediction indicates 
+                                {{ "a strong" if result.probability > 0.7 else "a moderate" if result.probability > 0.5 else "a lower" }} 
+                                likelihood of maintaining a 5+ year NBA career.
+                            </p>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Key Factors Influencing This Prediction:</h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                    <li>Overall playing time and game participation</li>
+                                    <li>Scoring efficiency and shooting percentages</li>
+                                    <li>Defensive contributions and rebounding</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="/"
+                           class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg shadow-md hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 text-center">
+                            Make Another Prediction
+                        </a>
+                        <button onclick="window.print()"
+                                class="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                            </svg>
+                            Save Results
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
